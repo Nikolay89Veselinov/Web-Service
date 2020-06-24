@@ -7,19 +7,15 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 @csrf_exempt
-def test(request):
+def return_response(request):
 
     data = request.GET
     result = []
-    numbers = []
 
-    if data != {}:
-        for k in data: 
-            numbers.append(data[k])
-
-        x = int(numbers[0])
-        y = int(numbers[1])
-        operation = numbers[2]
+    if isinstance(data, dict) and len(data) > 0:
+        x = int(data.get('x', False))
+        y = int(data.get('y', False))
+        operation = data.get('operation')
 
         if operation == '+':
             result = x + y
